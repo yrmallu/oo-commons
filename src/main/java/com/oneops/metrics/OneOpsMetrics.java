@@ -163,7 +163,7 @@ public class OneOpsMetrics {
    * Add metrics reporters based on the configuration.
    */
   private void addMetricsReporters() {
-    if (getB("reporter.es", false)) {
+    if (getB("reporter.es", true)) {
       try {
         logger.info("OneOps metrics elastic search reporting is enabled!");
 
@@ -184,7 +184,7 @@ public class OneOpsMetrics {
       logger.warn("OneOps metrics JMX reporting is disabled!");
     }
 
-    if (getB("reporter.console", false)) {
+    if (getB("reporter.console", true)) {
       consoleReporter = ConsoleReporter.forRegistry(ooMetricsRegistry).build();
       consoleReporter.start(getI("reporter.timeout", 30), TimeUnit.SECONDS);
     } else {
