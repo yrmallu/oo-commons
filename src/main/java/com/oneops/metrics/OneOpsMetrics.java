@@ -165,7 +165,7 @@ public class OneOpsMetrics {
   private void addMetricsReporters() {
     if (getB("reporter.es", true)) {
       try {
-        logger.info("OneOps metrics elastic search reporting is enabled!");
+        logger.info("OneOps metrics elastic search reporting is enabled!!");
 
         esReporter = ElasticsearchReporter.forRegistry(ooMetricsRegistry).build(getSearchHost());
         esReporter.start(getI("reporter.timeout", 60), TimeUnit.SECONDS);
