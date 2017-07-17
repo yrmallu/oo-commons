@@ -154,7 +154,7 @@ public class OneOpsMetrics {
     if (getB("jvm.threadstate", false)) {
       ooMetricsRegistry.registerAll(new ThreadStatesGaugeSet());
     }
-    if (getB("jvm.filedescriptor", fasle)) {
+    if (getB("jvm.filedescriptor", false)) {
       ooMetricsRegistry.register("openfd.ratio", new FileDescriptorRatioGauge());
     }
   }
