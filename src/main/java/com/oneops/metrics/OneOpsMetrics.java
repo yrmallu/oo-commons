@@ -85,7 +85,7 @@ public class OneOpsMetrics {
     logger.info("Initializing OneOps metrics system...");
     addMetricsListener();
     addJvmMetrics();
-    if (getB(ENABLE_IBATIS, false)) {
+    if (getB(ENABLE_IBATIS, true)) {
       addIbatisMetrics();
     }
     addMetricsReporters();
@@ -136,7 +136,7 @@ public class OneOpsMetrics {
    * Add metrics add/remove listener.
    */
   private void addMetricsListener() {
-    if (getB("listener.enabled", false)) {
+    if (getB("listener.enabled", true)) {
       ooMetricsRegistry.addListener(new OneOpsMetricListener());
     }
   }
@@ -145,16 +145,16 @@ public class OneOpsMetrics {
    * Add metrics JVM gauges.
    */
   private void addJvmMetrics() {
-    if (getB("jvm.gcstats", false)) {
+    if (getB("jvm.gcstats", true)) {
       ooMetricsRegistry.registerAll(new GarbageCollectorMetricSet());
     }
-    if (getB("jvm.memory", false)) {
+    if (getB("jvm.memory", true)) {
       ooMetricsRegistry.registerAll(new MemoryUsageGaugeSet());
     }
-    if (getB("jvm.threadstate", false)) {
+    if (getB("jvm.threadstate", true)) {
       ooMetricsRegistry.registerAll(new ThreadStatesGaugeSet());
     }
-    if (getB("jvm.filedescriptor", false)) {
+    if (getB("jvm.filedescriptor", true)) {
       ooMetricsRegistry.register("openfd.ratio", new FileDescriptorRatioGauge());
     }
   }
@@ -163,7 +163,7 @@ public class OneOpsMetrics {
    * Add metrics reporters based on the configuration.
    */
   private void addMetricsReporters() {
-    if (getB("reporter.es", false)) {
+    if (getB("reporter.es", true)) {
       try {
         logger.info("OneOps metrics elastic search reporting is enabled!!");
 
@@ -184,7 +184,7 @@ public class OneOpsMetrics {
       logger.warn("OneOps metrics JMX reporting is disabled!");
     }
 
-    if (getB("reporter.console", false)) {
+    if (getB("reporter.console", true)) {
       consoleReporter = ConsoleReporter.forRegistry(ooMetricsRegistry).build();
       consoleReporter.start(getI("reporter.timeout", 30), TimeUnit.SECONDS);
     } else {
